@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Mrs+Saint+Delafield&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Special+Gothic+Expanded+One&display=swap");
 @import "tailwindcss";
-
 
 :root {
   --background: #ffffff;
@@ -12,6 +13,13 @@
     --background: #0a0a0a;
     --foreground: #ededed;
   }
+}
+
+.font-signature {
+  font-family: "Mrs Saint Delafield", cursive;
+}
+.font-header {
+  font-family: "Special Gothic Expanded One", sans-serif;
 }
 
 body {
