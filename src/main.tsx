@@ -8,6 +8,7 @@ import Home from "./pages/Home.jsx";
 // import Profile from "./pages/Profile.jsx";
 import "./index.css";
 import { About } from "./pages/About.js";
+import { Admin } from "./pages/Admin.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -15,8 +16,8 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <Routes>
         <Route path="/" element={<App />}>
           <Route path="dashboard" element={<Home />} />
-          {/* <Route path="stats" element={<Stats />} />
           <Route path="admin" element={<Admin />} />
+          {/* <Route path="stats" element={<Stats />} />
           <Route path="profile" element={<Profile />} /> */}
         </Route>
         <Route path="about" element={<About />} />

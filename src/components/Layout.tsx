@@ -90,7 +90,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         </div>
       </aside>
 
-      <main className="flex-1 overflow-y-auto p-6  transition-all">
+      <main className="flex-1 overflow-y-auto p-6 transition-all">
         {children}
       </main>
     </div>

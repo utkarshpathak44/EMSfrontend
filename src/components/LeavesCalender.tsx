@@ -95,20 +95,22 @@ function LeavesCalender({ month, year }: { month: number; year: number }) {
                   {segregatedLeaveData[day.label - 1].map((leaves) => (
                     <div
                       className={`
-                      h-5   px-1 items-center mx-[]
-                      ${leaves ? "" : "bg-transparent"}
-                      ${leaves?.isStart ? "rounded-l-lg" : ""}
-                      ${leaves?.isEnd ? "rounded-r-lg" : ""}
-                      ${leaves ? "relative" : ""}
+                      h-5   px-1 items-center 
+                      ${leaves?.isStart ? "rounded-l-md border-l-[2px] border-stone-300/20" : ""}
+                                            ${
+                                              leaves?.user_email
+                                                ? "border-t-[2px] border-b-[2px] border-stone-300/20"
+                                                : ""
+                                            }
+
+                      ${leaves?.isEnd ? "rounded-r-md border-r-[2px] border-stone-300/20" : ""}
                     `}
                       style={{
                         backgroundColor: leaves?.color,
                         visibility: leaves ? "visible" : "hidden",
                       }}
                     >
-                      {leaves?.user_email
-                        ?.split("@")[0] 
-                        .replace(/\./g, " ")}
+                      {leaves?.user_email?.split("@")[0].replace(/\./g, " ")}
                     </div>
                   ))}
                 </div>
