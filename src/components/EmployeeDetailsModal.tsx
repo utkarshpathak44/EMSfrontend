@@ -76,10 +76,10 @@ const EmployeeDetailsModal = ({
         </button>
         {children}
 
-        <div className="w-full h-200 mt-4 max-h-[90%] bg-[#050505] rounded-3xl p-6  shadow-[inset_0_0_10px_rgba(0,0,0,0.4)] backdrop-blur-lg text-stone-200 space-y-6 overflow-y-scroll">
+        <div className="w-full h-200 mt-4 max-h-[90%] bg-[#070707] rounded-3xl p-6  shadow-[inset_0_0_10px_rgba(0,0,0,0.4)] backdrop-blur-lg text-stone-200 space-y-6 overflow-y-scroll">
           {/* Header */}
           <div className="flex flex-row gap-10 p-10">
-            <LanyardGenerator />
+            <LanyardGenerator selectedEmployee={employee}/>
 
             <div className="flex flex-col justify-end gap-0 w-100">
 

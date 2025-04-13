@@ -9,6 +9,7 @@ import Home from "./pages/Home.jsx";
 import "./index.css";
 import { About } from "./pages/About.js";
 import { Admin } from "./pages/Admin.tsx";
+import { LoginPage } from "./pages/Login.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -21,6 +22,8 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           <Route path="profile" element={<Profile />} /> */}
         </Route>
         <Route path="about" element={<About />} />
+        <Route path="login" element={<LoginPage />} />
+
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

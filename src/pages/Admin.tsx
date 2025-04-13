@@ -1,147 +1,291 @@
 import {
   Search,
   SlidersHorizontal,
-//   FileText,
-//   ShieldCheck,
-//   UserPlus,
-  X
+  //   FileText,
+  //   ShieldCheck,
+  //   UserPlus,
+  X,
 } from "lucide-react";
 import { useState } from "react";
 import EmployeeDetailsModal from "../components/EmployeeDetailsModal";
 
 const employeeList = [
   { name: "Grant Douglas Ward", id: "hdsf-1234", department: "Field Agents" },
+  { name: "Manav Das", id: "hdsf-1256", department: "Field Agents" },
+  { name: "Jatika Ahuja", id: "hdsf-1259", department: "Field Agents" },
 ];
 
-const employee = {
-  id: "hdsf-1234",
-  name: "Grant Douglas Ward",
-  role: "Field Agent",
-  email: "grant.ward@shield.gov",
-  status: "Compromized",
-  joinedDate: "May 4, 2010",
-  leaves: {
-    total: 30,
-    used: 25,
-    remaining: 5,
+const employee = [
+  {
+    id: "hdsf-1234",
+    name: "Grant Douglas Ward",
+    role: "Field Agent",
+    email: "grant.ward@shield.gov",
+    status: "Compromized",
+    joinedDate: "May 4, 2010",
+    leaves: {
+      total: 30,
+      used: 25,
+      remaining: 5,
+    },
+    leaveDetails: [
+      {
+        id: "a64c2d33-d8f7-4c5f-b2f3-60fca325ad23",
+        user_email: "grant.ward@hydra.net",
+        start_date: "2025-04-17",
+        end_date: "2025-04-19",
+        leave_apply_date: "2025-04-06",
+        is_approved: true,
+        reason: "Internet issues",
+        source: "wfh",
+      },
+      {
+        id: "f45d3a12-ecc3-4b7a-8721-d1c4e3a1981c",
+        user_email: "grant.ward@hydra.net",
+        start_date: "2025-03-10",
+        end_date: "2025-03-12",
+        leave_apply_date: "2025-03-01",
+        is_approved: false,
+        reason: "Personal matters",
+        source: "on-site",
+      },
+      {
+        id: "c31a90b4-8e4b-4fae-9d5f-3fbf7f07c2a5",
+        user_email: "grant.ward@hydra.net",
+        start_date: "2025-02-01",
+        end_date: "2025-02-03",
+        leave_apply_date: "2025-01-25",
+        is_approved: true,
+        reason: "Recon mission debrief",
+        source: "classified",
+      },
+      {
+        id: "d8ff6b72-1a3b-4e1e-b7d2-8e93e8910176",
+        user_email: "grant.ward@hydra.net",
+        start_date: "2025-01-05",
+        end_date: "2025-01-06",
+        leave_apply_date: "2025-01-02",
+        is_approved: true,
+        reason: "Medical leave",
+        source: "clinic",
+      },
+      {
+        id: "f45d3a12-ecc3-4b7a-8721-d1c4e3a1981c",
+        user_email: "grant.ward@hydra.net",
+        start_date: "2025-03-10",
+        end_date: "2025-03-12",
+        leave_apply_date: "2025-03-01",
+        is_approved: false,
+        reason: "Personal matters",
+        source: "on-site",
+      },
+      {
+        id: "c31a90b4-8e4b-4fae-9d5f-3fbf7f07c2a5",
+        user_email: "grant.ward@hydra.net",
+        start_date: "2025-02-01",
+        end_date: "2025-02-03",
+        leave_apply_date: "2025-01-25",
+        is_approved: true,
+        reason: "Recon mission debrief",
+        source: "classified",
+      },
+      {
+        id: "d8ff6b72-1a3b-4e1e-b7d2-8e93e8910176",
+        user_email: "grant.ward@hydra.net",
+        start_date: "2025-01-05",
+        end_date: "2025-01-06",
+        leave_apply_date: "2025-01-02",
+        is_approved: true,
+        reason: "Medical leave",
+        source: "clinic",
+      },
+      {
+        id: "f45d3a12-ecc3-4b7a-8721-d1c4e3a1981c",
+        user_email: "grant.ward@hydra.net",
+        start_date: "2025-03-10",
+        end_date: "2025-03-12",
+        leave_apply_date: "2025-03-01",
+        is_approved: false,
+        reason: "Personal matters",
+        source: "on-site",
+      },
+      {
+        id: "c31a90b4-8e4b-4fae-9d5f-3fbf7f07c2a5",
+        user_email: "grant.ward@hydra.net",
+        start_date: "2025-02-01",
+        end_date: "2025-02-03",
+        leave_apply_date: "2025-01-25",
+        is_approved: true,
+        reason: "Recon mission debrief",
+        source: "classified",
+      },
+      {
+        id: "d8ff6b72-1a3b-4e1e-b7d2-8e93e8910176",
+        user_email: "grant.ward@hydra.net",
+        start_date: "2025-01-05",
+        end_date: "2025-01-06",
+        leave_apply_date: "2025-01-02",
+        is_approved: true,
+        reason: "Medical leave",
+        source: "clinic",
+      },
+    ],
   },
-  leaveDetails: [
-    {
-      id: "a64c2d33-d8f7-4c5f-b2f3-60fca325ad23",
-      user_email: "grant.ward@hydra.net",
-      start_date: "2025-04-17",
-      end_date: "2025-04-19",
-      leave_apply_date: "2025-04-06",
-      is_approved: true,
-      reason: "Internet issues",
-      source: "wfh",
+  {
+    id: "hdsf-1256",
+    name: "Manav Das",
+    role: "Tester",
+    email: "dascorp009@gmail.com",
+    status: "active",
+    joinedDate: "May 4, 2010",
+    leaves: {
+      total: 30,
+      used: 25,
+      remaining: 5,
     },
-    {
-      id: "f45d3a12-ecc3-4b7a-8721-d1c4e3a1981c",
-      user_email: "grant.ward@hydra.net",
-      start_date: "2025-03-10",
-      end_date: "2025-03-12",
-      leave_apply_date: "2025-03-01",
-      is_approved: false,
-      reason: "Personal matters",
-      source: "on-site",
-    },
-    {
-      id: "c31a90b4-8e4b-4fae-9d5f-3fbf7f07c2a5",
-      user_email: "grant.ward@hydra.net",
-      start_date: "2025-02-01",
-      end_date: "2025-02-03",
-      leave_apply_date: "2025-01-25",
-      is_approved: true,
-      reason: "Recon mission debrief",
-      source: "classified",
-    },
-    {
-      id: "d8ff6b72-1a3b-4e1e-b7d2-8e93e8910176",
-      user_email: "grant.ward@hydra.net",
-      start_date: "2025-01-05",
-      end_date: "2025-01-06",
-      leave_apply_date: "2025-01-02",
-      is_approved: true,
-      reason: "Medical leave",
-      source: "clinic",
-    },
-    {
-      id: "f45d3a12-ecc3-4b7a-8721-d1c4e3a1981c",
-      user_email: "grant.ward@hydra.net",
-      start_date: "2025-03-10",
-      end_date: "2025-03-12",
-      leave_apply_date: "2025-03-01",
-      is_approved: false,
-      reason: "Personal matters",
-      source: "on-site",
-    },
-    {
-      id: "c31a90b4-8e4b-4fae-9d5f-3fbf7f07c2a5",
-      user_email: "grant.ward@hydra.net",
-      start_date: "2025-02-01",
-      end_date: "2025-02-03",
-      leave_apply_date: "2025-01-25",
-      is_approved: true,
-      reason: "Recon mission debrief",
-      source: "classified",
-    },
-    {
-      id: "d8ff6b72-1a3b-4e1e-b7d2-8e93e8910176",
-      user_email: "grant.ward@hydra.net",
-      start_date: "2025-01-05",
-      end_date: "2025-01-06",
-      leave_apply_date: "2025-01-02",
-      is_approved: true,
-      reason: "Medical leave",
-      source: "clinic",
-    },
-    {
-      id: "f45d3a12-ecc3-4b7a-8721-d1c4e3a1981c",
-      user_email: "grant.ward@hydra.net",
-      start_date: "2025-03-10",
-      end_date: "2025-03-12",
-      leave_apply_date: "2025-03-01",
-      is_approved: false,
-      reason: "Personal matters",
-      source: "on-site",
-    },
-    {
-      id: "c31a90b4-8e4b-4fae-9d5f-3fbf7f07c2a5",
-      user_email: "grant.ward@hydra.net",
-      start_date: "2025-02-01",
-      end_date: "2025-02-03",
-      leave_apply_date: "2025-01-25",
-      is_approved: true,
-      reason: "Recon mission debrief",
-      source: "classified",
-    },
-    {
-      id: "d8ff6b72-1a3b-4e1e-b7d2-8e93e8910176",
-      user_email: "grant.ward@hydra.net",
-      start_date: "2025-01-05",
-      end_date: "2025-01-06",
-      leave_apply_date: "2025-01-02",
-      is_approved: true,
-      reason: "Medical leave",
-      source: "clinic",
-    },
-  ],
-};
+    leaveDetails: [
+      {
+        id: "a64c2d33-d8f7-4c5f-b2f3-60fca325ad23",
+        user_email: "grant.ward@hydra.net",
+        start_date: "2025-04-17",
+        end_date: "2025-04-19",
+        leave_apply_date: "2025-04-06",
+        is_approved: true,
+        reason: "Internet issues",
+        source: "wfh",
+      },
+      {
+        id: "f45d3a12-ecc3-4b7a-8721-d1c4e3a1981c",
+        user_email: "grant.ward@hydra.net",
+        start_date: "2025-03-10",
+        end_date: "2025-03-12",
+        leave_apply_date: "2025-03-01",
+        is_approved: false,
+        reason: "Personal matters",
+        source: "on-site",
+      },
+      {
+        id: "c31a90b4-8e4b-4fae-9d5f-3fbf7f07c2a5",
+        user_email: "grant.ward@hydra.net",
+        start_date: "2025-02-01",
+        end_date: "2025-02-03",
+        leave_apply_date: "2025-01-25",
+        is_approved: true,
+        reason: "Recon mission debrief",
+        source: "classified",
+      },
+      {
+        id: "d8ff6b72-1a3b-4e1e-b7d2-8e93e8910176",
+        user_email: "grant.ward@hydra.net",
+        start_date: "2025-01-05",
+        end_date: "2025-01-06",
+        leave_apply_date: "2025-01-02",
+        is_approved: true,
+        reason: "Medical leave",
+        source: "clinic",
+      },
+      {
+        id: "f45d3a12-ecc3-4b7a-8721-d1c4e3a1981c",
+        user_email: "grant.ward@hydra.net",
+        start_date: "2025-03-10",
+        end_date: "2025-03-12",
+        leave_apply_date: "2025-03-01",
+        is_approved: false,
+        reason: "Personal matters",
+        source: "on-site",
+      },
+      {
+        id: "c31a90b4-8e4b-4fae-9d5f-3fbf7f07c2a5",
+        user_email: "grant.ward@hydra.net",
+        start_date: "2025-02-01",
+        end_date: "2025-02-03",
+        leave_apply_date: "2025-01-25",
+        is_approved: true,
+        reason: "Recon mission debrief",
+        source: "classified",
+      },
+      {
+        id: "d8ff6b72-1a3b-4e1e-b7d2-8e93e8910176",
+        user_email: "grant.ward@hydra.net",
+        start_date: "2025-01-05",
+        end_date: "2025-01-06",
+        leave_apply_date: "2025-01-02",
+        is_approved: true,
+        reason: "Medical leave",
+        source: "clinic",
+      },
+      {
+        id: "f45d3a12-ecc3-4b7a-8721-d1c4e3a1981c",
+        user_email: "grant.ward@hydra.net",
+        start_date: "2025-03-10",
+        end_date: "2025-03-12",
+        leave_apply_date: "2025-03-01",
+        is_approved: false,
+        reason: "Personal matters",
+        source: "on-site",
+      },
+      {
+        id: "c31a90b4-8e4b-4fae-9d5f-3fbf7f07c2a5",
+        user_email: "grant.ward@hydra.net",
+        start_date: "2025-02-01",
+        end_date: "2025-02-03",
+        leave_apply_date: "2025-01-25",
+        is_approved: true,
+        reason: "Recon mission debrief",
+        source: "classified",
+      },
+      {
+        id: "d8ff6b72-1a3b-4e1e-b7d2-8e93e8910176",
+        user_email: "grant.ward@hydra.net",
+        start_date: "2025-01-05",
+        end_date: "2025-01-06",
+        leave_apply_date: "2025-01-02",
+        is_approved: true,
+        reason: "Medical leave",
+        source: "clinic",
+      },
+    ],
+  },
+  {
+    id: "hdsf-1259",
+    name: "Jatika Ahuja",
+    role: "Sde",
+    email: "ja@gmail.com",
+    status: "active",
+    joinedDate: "May 4, 2010",
+    leaves: {
+        total: 30,
+        used: 25,
+        remaining: 5,
+      },
+    leaveDetails: [
+      {
+        id: "a64c2d33-d8f7-4c5f-b2f3-60fca325ad23",
+        user_email: "grant.ward@hydra.net",
+        start_date: "2025-04-17",
+        end_date: "2025-04-19",
+        leave_apply_date: "2025-04-06",
+        is_approved: true,
+        reason: "Internet issues",
+        source: "wfh",
+      },
+    ],
+  },
+];
 
 export const Admin = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedEmployee, setSelectedEmployee] = useState<
-    typeof employee | null
-  >(employee);
+    (typeof employee)[] | null
+  >(employee[0]);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchValue, setSearchValue] = useState("");
 
-  const filteredEmployees = employeeList.filter((e) =>
-    e.name.toLowerCase().includes(searchValue.toLowerCase())
+  const filteredEmployees = employee.filter((e) =>
+    e.id.toLowerCase().includes(searchValue.toLowerCase())
   );
-  <p></p>
+
   return (
     <div className="flex h-full w-full gap-4 px-6 py-4 pl-20">
       {/* Sidebar */}
@@ -215,7 +359,9 @@ export const Admin = () => {
                 <button
                   key={id}
                   onClick={() => {
-                    setSelectedEmployee(employee.id === id ? employee : null);
+                    setSelectedEmployee(
+                      employee.find((e) => e.id === id) || null
+                    );
                     setIsOpen(true);
                     setIsSearchOpen(false);
                     setSearchValue("");
@@ -243,7 +389,7 @@ export const Admin = () => {
             <button
               key={id}
               onClick={() => {
-                setSelectedEmployee(employee.id === id ? employee : null);
+                setSelectedEmployee(employee.find((e) => e.id === id));
                 setIsOpen(true);
               }}
               className="px-4 py-2 rounded-lg bg-stone-800/70 hover:bg-stone-700/70 text-left text-sm text-stone-300 transition-all"
