@@ -5,13 +5,43 @@ import {
   Trash2,
   Ban,
   UserCog,
+  AtSign,
+  Fingerprint,
+  User,
 } from "lucide-react";
 import { LanyardGenerator } from "./LanyardGenerator";
+
+type LeaveDetail = {
+  id: string;
+  user_email: string;
+  start_date: string;
+  end_date: string;
+  leave_apply_date: string;
+  is_approved: boolean;
+  reason: string;
+  source: string;
+};
+
+type LeaveSummary = {
+  total: number;
+  used: number;
+  remaining: number;
+};
+
+type Employee = {
+  name: string;
+  role: string;
+  email: string;
+  status: string;
+  joinedDate: string;
+  leaves: LeaveSummary;
+  leaveDetails: LeaveDetail[];
+};
 
 interface ActionsModalProps {
   isOpen: boolean;
   onClose: () => void;
-  employee?: any;
+  employee: Employee;
   children: React.ReactNode;
 }
 
@@ -30,8 +60,8 @@ const EmployeeDetailsModal = ({
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="relative w-[90%] max-w-7xl max-h-[90%] overflow-scroll 
-            bg-black
+        className="relative w-[90%] max-w-7xl max-h-[90%] overflow-hidden 
+            bg-gradient-to-br from-stone-950/80 to-stone-900/80
             border border-stone-700/30 
             rounded-3xl p-6 
             shadow-[inset_0_0_10px_rgba(0,0,0,0.4)] 
@@ -46,15 +76,28 @@ const EmployeeDetailsModal = ({
         </button>
         {children}
 
-        <div className="w-full h-full mt-8 max-h-[90%] bg-black rounded-3xl p-6  shadow-[inset_0_0_10px_rgba(0,0,0,0.4)] backdrop-blur-lg text-stone-200 space-y-6 ">
+        <div className="w-full h-200 mt-4 max-h-[90%] bg-[#050505] rounded-3xl p-6  shadow-[inset_0_0_10px_rgba(0,0,0,0.4)] backdrop-blur-lg text-stone-200 space-y-6 overflow-y-scroll">
           {/* Header */}
           <div className="flex flex-row gap-10 p-10">
             <LanyardGenerator />
 
-            <div className="flex flex-col  justify-end gap-2 w-70">
-              <button className="flex w-40 items-center gap-2 px-4 py-2  hover:bg-stone-600/70 text-sm rounded-xl transition-all">
-                <Pencil size={16} /> Edit Employee
-              </button>
+            <div className="flex flex-col justify-end gap-0 w-100">
+
+              <StatCard
+                icon={<User size={20} />}
+                label="Employee Name"
+                value={employee.name}
+              />
+              <StatCard
+                icon={<Fingerprint size={20} />}
+                label="Employee ID"
+                value={"hdsf-1234"}
+              />
+              <StatCard
+                icon={<AtSign size={20} />}
+                label="Email"
+                value={employee.email}
+              />
               <StatCard
                 icon={<Clock size={20} />}
                 label="Total Leaves"
@@ -70,6 +113,9 @@ const EmployeeDetailsModal = ({
                 label="Remaining"
                 value={employee.leaves.remaining}
               />
+              <button className="flex w-40 items-center gap-2 px-4 py-2  hover:bg-stone-600/70 text-sm rounded-xl transition-all">
+                <Pencil size={16} /> Edit Employee
+              </button>
             </div>
           </div>
 
@@ -168,17 +214,12 @@ function StatCard({
   value: string | number;
 }) {
   return (
-    <div className="flex items-center gap-4 px-4 py-3 rounded-2xl border border-stone-700/40 bg-stone-900/60 backdrop-blur-md shadow-inner hover:shadow-md transition-all">
-      <div className="p-2 bg-stone-800/60 rounded-xl text-stone-300 flex items-center justify-center">
-        {icon}
-      </div>
-      <div className="flex flex-col">
-        <span className="text-xs text-stone-400 tracking-wide">{label}</span>
-        <span className="text-xl font-semibold text-stone-100 leading-tight">
-          {value}
-        </span>
+    <div className="flex items-center gap-3 px-2 py-1 text-sm text-stone-300">
+      <div className="text-stone-400">{icon}</div>
+      <div className="flex gap-1 items-baseline">
+        <span className="text-xs text-stone-500 tracking-wide">{label}:</span>
+        <span className="text-sm font-medium text-stone-200">{value}</span>
       </div>
     </div>
   );
 }
-

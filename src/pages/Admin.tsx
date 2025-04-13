@@ -1,14 +1,20 @@
 import {
   Search,
   SlidersHorizontal,
-  FileText,
-  ShieldCheck,
-  UserPlus,
+//   FileText,
+//   ShieldCheck,
+//   UserPlus,
+  X
 } from "lucide-react";
 import { useState } from "react";
 import EmployeeDetailsModal from "../components/EmployeeDetailsModal";
 
+const employeeList = [
+  { name: "Grant Douglas Ward", id: "hdsf-1234", department: "Field Agents" },
+];
+
 const employee = {
+  id: "hdsf-1234",
   name: "Grant Douglas Ward",
   role: "Field Agent",
   email: "grant.ward@shield.gov",
@@ -124,15 +130,29 @@ const employee = {
 };
 
 export const Admin = () => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedEmployee, setSelectedEmployee] = useState<
+    typeof employee | null
+  >(employee);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchValue, setSearchValue] = useState("");
+
+  const filteredEmployees = employeeList.filter((e) =>
+    e.name.toLowerCase().includes(searchValue.toLowerCase())
+  );
+  <p></p>
   return (
     <div className="flex h-full w-full gap-4 px-6 py-4 pl-20">
-      <div className="w-100 flex-shrink-0 bg-gradient-to-br from-stone-800/80 to-stone-900/80 rounded-3xl p-4 border border-stone-700/30 shadow-[inset_0_0_10px_rgba(0,0,0,0.4)] backdrop-blur-lg text-stone-200 flex flex-col gap-2">
+      {/* Sidebar */}
+      <div className="relative w-100 flex-shrink-0 bg-gradient-to-br from-stone-800/80 to-stone-900/80 rounded-3xl p-4 border border-stone-700/30 shadow-[inset_0_0_10px_rgba(0,0,0,0.4)] backdrop-blur-lg text-stone-200 flex flex-col gap-4">
         <div>
           <h1 className="text-2xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-white to-stone-400">
             Admin Dashboard
           </h1>
         </div>
+
+        {/* Search Bar */}
         <div className="relative">
           <Search
             className="absolute left-3 top-2.5 text-stone-400"
@@ -141,31 +161,115 @@ export const Admin = () => {
           <input
             type="text"
             placeholder="Search employee..."
+            value={searchTerm}
+            onClick={() => setIsSearchOpen(true)}
+            onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full pl-10 pr-4 py-2 rounded-lg bg-stone-800/70 text-sm text-stone-200 placeholder-stone-400 border border-stone-700 focus:outline-none focus:ring-2 focus:ring-stone-600"
           />
         </div>
+        {isSearchOpen && (
+          <div className="absolute inset-0 z-20 bg-stone-950/90 backdrop-blur-lg rounded-3xl p-6 border border-stone-700/30 shadow-xl flex flex-col">
+            {/* Search Bar */}
+            <div className="relative mb-4">
+              <Search
+                className="absolute left-3 top-2.5 text-stone-400"
+                size={18}
+              />
+              <input
+                type="text"
+                placeholder="Type to search employees..."
+                value={searchValue}
+                onChange={(e) => setSearchValue(e.target.value)}
+                autoFocus
+                className="w-full pl-10 pr-10 py-2 rounded-lg bg-stone-800/80 text-sm text-stone-200 placeholder-stone-400 border border-stone-700 focus:outline-none focus:ring-2 focus:ring-stone-600"
+              />
+              <X
+                onClick={() => {
+                  setIsSearchOpen(false);
+                  setSearchValue("");
+                }}
+                className="absolute right-3 top-2.5 text-stone-400 cursor-pointer"
+                size={18}
+              />
+            </div>
 
-        <div className="flex flex-col gap-2">
-          <div className="flex items-center gap-2 text-stone-400 text-sm">
-            <SlidersHorizontal size={16} />
-            <span className="font-semibold text-stone-300">Filters</span>
+            {/* Filters */}
+            <div className="mb-2 text-sm text-stone-400 font-medium flex items-center gap-2">
+              <SlidersHorizontal size={16} />
+              <span>Filters</span>
+            </div>
+            <div className="flex gap-2 mb-6">
+              {["All", "On Leave", "Pending", "New"].map((filter) => (
+                <button
+                  key={filter}
+                  className="px-3 py-1 rounded-lg bg-stone-800/60 hover:bg-stone-700/70 text-sm text-stone-300 transition-all"
+                >
+                  {filter}
+                </button>
+              ))}
+            </div>
+
+            {/* Search Results */}
+            <div className="flex flex-col gap-2 overflow-y-auto">
+              {filteredEmployees.map(({ name, id }) => (
+                <button
+                  key={id}
+                  onClick={() => {
+                    setSelectedEmployee(employee.id === id ? employee : null);
+                    setIsOpen(true);
+                    setIsSearchOpen(false);
+                    setSearchValue("");
+                  }}
+                  className="px-4 py-2 rounded-lg bg-stone-800/70 hover:bg-stone-700/70 text-left text-sm text-stone-300 transition-all"
+                >
+                  {name}
+                </button>
+              ))}
+              {filteredEmployees.length === 0 && (
+                <div className="text-stone-500 text-sm mt-4">
+                  No results found.
+                </div>
+              )}
+            </div>
           </div>
-          {[
-            "All Employees",
-            "On Leave Today",
-            "Pending Approvals",
-            "Recently Joined",
-          ].map((label) => (
+        )}
+
+        {/* Filters Overlay */}
+
+        {/* Employee List */}
+        <span className="font-semibold text-stone-300">All Employees</span>
+        <div className="flex flex-col gap-2">
+          {employeeList.map(({ name, id }) => (
             <button
-              key={label}
+              key={id}
+              onClick={() => {
+                setSelectedEmployee(employee.id === id ? employee : null);
+                setIsOpen(true);
+              }}
               className="px-4 py-2 rounded-lg bg-stone-800/70 hover:bg-stone-700/70 text-left text-sm text-stone-300 transition-all"
             >
-              {label}
+              {name}
             </button>
           ))}
         </div>
+      </div>
 
-        <div className="flex flex-col gap-2 mt-2">
+      {/* Right panel */}
+      <div className="flex-1 bg-gradient-to-br from-stone-950/80 to-stone-900/80 rounded-3xl p-6 border border-stone-700/30 shadow-[inset_0_0_10px_rgba(0,0,0,0.4)] backdrop-blur-lg text-stone-200 overflow-y-scroll" />
+
+      {/* Modal */}
+      <EmployeeDetailsModal
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        employee={selectedEmployee!}
+      >
+        <h2 className="text-xl font-bold w-full h-full">Employee details</h2>
+      </EmployeeDetailsModal>
+    </div>
+  );
+};
+{
+  /* <div className="flex flex-col gap-2 mt-2">
           <div className="text-stone-400 text-sm font-semibold">
             Employee Management
           </div>
@@ -200,15 +304,5 @@ export const Admin = () => {
           <button className="px-4 py-2 rounded-lg bg-stone-800/70 hover:bg-stone-700/70 text-left text-sm text-stone-300 transition-all">
             🛡️ Assign Roles
           </button>
-        </div>
-      </div>
-
-      <div className="flex-1 bg-gradient-to-br from-stone-950/80 to-stone-900/80 rounded-3xl p-6 border border-stone-700/30 shadow-[inset_0_0_10px_rgba(0,0,0,0.4)] backdrop-blur-lg text-stone-200 overflow-y-scroll">
-      </div>
-        <EmployeeDetailsModal isOpen={isOpen} onClose={()=>setIsOpen(false)} employee={employee} >
-        <h2 className="text-xl font-bold w-full h-full">Employee details</h2>
-        <i>{employee.name}</i>
-        </EmployeeDetailsModal>
-    </div>
-  );
-};
+        </div> */
+}
