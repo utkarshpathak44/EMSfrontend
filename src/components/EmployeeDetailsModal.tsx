@@ -1,4 +1,5 @@
 import { AdminActions } from "../utils/enums";
+import { AddEmployeePage } from "./AddEmployee";
 import { EmployeeDetails } from "./EmployeeDetails";
 
 type LeaveDetail = {
@@ -69,6 +70,9 @@ const EmployeeDetailsModal = ({
         {children}
         {selectedAction === AdminActions.VIEW_EMPLOYEE && (
           <EmployeeDetails employee={employee} />
+        )}
+        {selectedAction === AdminActions.ADD_EMPLOYEE && (
+          <AddEmployeePage />
         )}
         <div className="h-128"></div>
       </div>

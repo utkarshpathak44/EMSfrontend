@@ -1,4 +1,5 @@
 import {
+  Plus,
   Search,
   SlidersHorizontal,
   //   FileText,
@@ -282,7 +283,9 @@ export const Admin = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchValue, setSearchValue] = useState("");
-  const [selectedActionType, setSelectedActionType] = useState(AdminActions.VIEW_EMPLOYEE);
+  const [selectedActionType, setSelectedActionType] = useState(
+    AdminActions.VIEW_EMPLOYEE
+  );
 
   const filteredEmployees = employee.filter((e) =>
     e.id.toLowerCase().includes(searchValue.toLowerCase())
@@ -386,13 +389,26 @@ export const Admin = () => {
         {/* Filters Overlay */}
 
         {/* Employee List */}
-        <span className="font-semibold text-stone-300">All Employees</span>
+        <div className="flex items-center justify-between mb-2">
+          <span className="font-semibold text-stone-300">All Employees</span>
+          <button
+            className="p-1 rounded hover:text-white text-stone-400 transition-colors"
+            onClick={() => {
+              setSelectedActionType(AdminActions.ADD_EMPLOYEE);
+              setIsOpen(true);
+            }}
+          >
+            <Plus size={18} />
+          </button>
+        </div>
         <div className="flex flex-col gap-2">
           {employeeList.map(({ name, id }) => (
             <button
               key={id}
               onClick={() => {
                 setSelectedEmployee(employee.find((e) => e.id === id));
+                setSelectedActionType(AdminActions.VIEW_EMPLOYEE);
+
                 setIsOpen(true);
               }}
               className="px-4 py-2 rounded-lg bg-stone-800/70 hover:bg-stone-700/70 text-left text-sm text-stone-300 transition-all"
@@ -413,7 +429,11 @@ export const Admin = () => {
         selectedAction={selectedActionType}
         employee={selectedEmployee!}
       >
-        <h2 className="text-xl font-bold w-full h-full">Employee details</h2>
+        <i className="text-xl font-bold w-full mb-4">
+          {selectedActionType === AdminActions.VIEW_EMPLOYEE
+            ? "Employee Details"
+            : "Employee management"}
+        </i>
       </EmployeeDetailsModal>
     </div>
   );

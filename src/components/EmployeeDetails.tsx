@@ -13,6 +13,7 @@ import { LanyardGenerator } from "./LanyardGenerator";
 import { Employee } from "@/utils/types";
 
 export const EmployeeDetails = ({ employee }: { employee: Employee }) => {
+  if (!employee) return null;
   return (
     <div className="w-full h-200 mt-4 max-h-[90%] bg-[#070707] rounded-3xl p-6  shadow-[inset_0_0_10px_rgba(0,0,0,0.4)] backdrop-blur-lg text-stone-200 space-y-6 overflow-y-scroll">
       {/* Header */}
