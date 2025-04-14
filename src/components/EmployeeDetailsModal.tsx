@@ -79,10 +79,9 @@ const EmployeeDetailsModal = ({
         <div className="w-full h-200 mt-4 max-h-[90%] bg-[#070707] rounded-3xl p-6  shadow-[inset_0_0_10px_rgba(0,0,0,0.4)] backdrop-blur-lg text-stone-200 space-y-6 overflow-y-scroll">
           {/* Header */}
           <div className="flex flex-row gap-10 p-10">
-            <LanyardGenerator selectedEmployee={employee}/>
+            <LanyardGenerator selectedEmployee={employee} />
 
             <div className="flex flex-col justify-end gap-0 w-100">
-
               <StatCard
                 icon={<User size={20} />}
                 label="Employee Name"
@@ -113,8 +112,11 @@ const EmployeeDetailsModal = ({
                 label="Remaining"
                 value={employee.leaves.remaining}
               />
-              <button className="flex w-40 items-center gap-2 px-4 py-2  hover:bg-stone-600/70 text-sm rounded-xl transition-all">
-                <Pencil size={16} /> Edit Employee
+              <button className="flex w-40 items-center gap-3 px-2 py-1  text-sm rounded-xl transition-all">
+                <Pencil size={20} className="text-stone-400" />
+                <span className="text-xs text-stone-500 hover:underline cursor-pointer transition-all">
+                  Edit Employee
+                </span>
               </button>
             </div>
           </div>
