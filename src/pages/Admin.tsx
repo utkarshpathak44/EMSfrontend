@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import EmployeeDetailsModal from "../components/EmployeeDetailsModal";
+import { AdminActions } from "../utils/enums";
 
 const employeeList = [
   { name: "Grant Douglas Ward", id: "hdsf-1234", department: "Field Agents" },
@@ -254,10 +255,10 @@ const employee = [
     status: "active",
     joinedDate: "May 4, 2010",
     leaves: {
-        total: 30,
-        used: 25,
-        remaining: 5,
-      },
+      total: 30,
+      used: 25,
+      remaining: 5,
+    },
     leaveDetails: [
       {
         id: "a64c2d33-d8f7-4c5f-b2f3-60fca325ad23",
@@ -281,6 +282,7 @@ export const Admin = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchValue, setSearchValue] = useState("");
+  const [selectedActionType, setSelectedActionType] = useState(AdminActions.VIEW_EMPLOYEE);
 
   const filteredEmployees = employee.filter((e) =>
     e.id.toLowerCase().includes(searchValue.toLowerCase())
@@ -362,6 +364,7 @@ export const Admin = () => {
                     setSelectedEmployee(
                       employee.find((e) => e.id === id) || null
                     );
+                    setSelectedActionType(AdminActions.VIEW_EMPLOYEE);
                     setIsOpen(true);
                     setIsSearchOpen(false);
                     setSearchValue("");
@@ -407,6 +410,7 @@ export const Admin = () => {
       <EmployeeDetailsModal
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
+        selectedAction={selectedActionType}
         employee={selectedEmployee!}
       >
         <h2 className="text-xl font-bold w-full h-full">Employee details</h2>
