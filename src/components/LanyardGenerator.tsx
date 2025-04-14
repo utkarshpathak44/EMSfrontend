@@ -1,9 +1,20 @@
 import { useState } from "react";
 
-export const LanyardGenerator = ({ selectedEmployee }) => {
+interface Employee {
+  name: string;
+  role: string;
+  email: string;
+}
+
+export const LanyardGenerator = ({ selectedEmployee }: { selectedEmployee: Employee }) => {
   const [rotation, setRotation] = useState({ x: 0, y: 0 });
 
-  const handleMouseMove = (e) => {
+
+  interface MouseMoveEvent extends React.MouseEvent<HTMLDivElement, MouseEvent> {
+    currentTarget: HTMLDivElement;
+  }
+
+  const handleMouseMove = (e: MouseMoveEvent) => {
     const card = e.currentTarget;
     const rect = card.getBoundingClientRect();
     const cardX = rect.left + rect.width / 2;
@@ -12,8 +23,8 @@ export const LanyardGenerator = ({ selectedEmployee }) => {
     const deltaX = e.clientX - cardX;
     const deltaY = e.clientY - cardY;
 
-    const rotateX = (-deltaY / 15).toFixed(2); 
-    const rotateY = (deltaX / 15).toFixed(2); 
+    const rotateX = parseFloat((-deltaY / 15).toFixed(2));
+    const rotateY = parseFloat((deltaX / 15).toFixed(2));
 
     setRotation({ x: rotateX, y: rotateY });
   };
@@ -49,7 +60,7 @@ export const LanyardGenerator = ({ selectedEmployee }) => {
               </p>
             </div>
 
-            {/* ID Info */}
+            
             <div className="text-[10px] text-stone-300 space-y-1 bg-stone-900/0 rounded-xl backdrop-blur-sm shadow-md mt-auto font-header">
               <p><span className=" ">SHLD-042</span></p>
               <p><span className=" tracking-wide">Operations Division</span></p>

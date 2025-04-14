@@ -278,7 +278,7 @@ const employee = [
 export const Admin = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedEmployee, setSelectedEmployee] = useState<
-    (typeof employee)[] | null
+    typeof employee[0] | null
   >(employee[0]);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
@@ -406,7 +406,7 @@ export const Admin = () => {
             <button
               key={id}
               onClick={() => {
-                setSelectedEmployee(employee.find((e) => e.id === id));
+                setSelectedEmployee(employee.find((e) => e.id === id) || null);
                 setSelectedActionType(AdminActions.VIEW_EMPLOYEE);
 
                 setIsOpen(true);

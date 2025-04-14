@@ -32,18 +32,18 @@ export const AddEmployeePage = () => {
   };
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-stone-950 to-stone-900 px-8 py-6">
-      <div className="w-full max-w-4xl  bg-stone-900/70 border border-stone-700/30 backdrop-blur-xl shadow-[inset_0_0_30px_rgba(0,0,0,0.4)] rounded-3xl p-10 flex flex-col gap-8 text-stone-200">
+    <div className="min-h-screen w-full bg-gradient-to-br from-stone-950 to-stone-900 ">
+      <div className="w-full   rounded-3xl p-10 flex flex-col gap-8 text-stone-200">
         <div className="flex flex-col gap-1">
-          <h2 className="text-3xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-stone-400">
+          <i className="text-3xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-stone-400">
             Add New Employee
-          </h2>
+          </i>
           <p className="text-sm text-stone-400 italic">
             Fill in the details to onboard a new agent
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-6 w-3xl">
           <div className="relative">
             <User
               className="absolute left-4 top-3.5 text-stone-500"
