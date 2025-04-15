@@ -10,6 +10,10 @@ function LeavesCalender({ month, year }: { month: number; year: number }) {
   const adjustedDaysInMonth = [...daysInMonth];
   if (isLeap) adjustedDaysInMonth[1] = 29;
 
+  const day = firstDay.toLocaleString("en-US", { weekday: "short" });
+  const firstDayIndex = dayNames.indexOf(day);
+  //console.log((14-firstDayIndex)%7+1)
+
   let calendarBegin = 1;
   let previousMonthEnded = false;
   let daysInPreviousMonth = 0;
@@ -96,14 +100,22 @@ function LeavesCalender({ month, year }: { month: number; year: number }) {
                     <div
                       className={`
                       h-5   px-1 items-center 
-                      ${leaves?.isStart ? "rounded-l-md border-l-[2px] border-stone-300/20" : ""}
+                      ${
+                        leaves?.isStart
+                          ? "rounded-l-md border-l-[2px] border-stone-300/20"
+                          : ""
+                      }
                                             ${
                                               leaves?.user_email
                                                 ? "border-t-[2px] border-b-[2px] border-stone-300/20"
                                                 : ""
                                             }
 
-                      ${leaves?.isEnd ? "rounded-r-md border-r-[2px] border-stone-300/20" : ""}
+                      ${
+                        leaves?.isEnd
+                          ? "rounded-r-md border-r-[2px] border-stone-300/20"
+                          : ""
+                      }
                     `}
                       style={{
                         backgroundColor: leaves?.color,
@@ -111,6 +123,9 @@ function LeavesCalender({ month, year }: { month: number; year: number }) {
                       }}
                     >
                       {leaves?.user_email?.split("@")[0].replace(/\./g, " ")}
+                      {/* {(leaves?.isStart ||
+                        ((day.label - firstDayIndex) % 7) + 1 === 0) &&
+                        leaves.user_email?.split("@")[0].replace(/\./g, " ")} */}
                     </div>
                   ))}
                 </div>

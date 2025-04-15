@@ -1,4 +1,5 @@
 import {
+  Plus,
   Search,
   SlidersHorizontal,
   //   FileText,
@@ -8,6 +9,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import EmployeeDetailsModal from "../components/EmployeeDetailsModal";
+import { AdminActions } from "../utils/enums";
 
 const employeeList = [
   { name: "Grant Douglas Ward", id: "hdsf-1234", department: "Field Agents" },
@@ -254,10 +256,10 @@ const employee = [
     status: "active",
     joinedDate: "May 4, 2010",
     leaves: {
-        total: 30,
-        used: 25,
-        remaining: 5,
-      },
+      total: 30,
+      used: 25,
+      remaining: 5,
+    },
     leaveDetails: [
       {
         id: "a64c2d33-d8f7-4c5f-b2f3-60fca325ad23",
@@ -276,11 +278,14 @@ const employee = [
 export const Admin = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedEmployee, setSelectedEmployee] = useState<
-    (typeof employee)[] | null
+    typeof employee[0] | null
   >(employee[0]);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchValue, setSearchValue] = useState("");
+  const [selectedActionType, setSelectedActionType] = useState(
+    AdminActions.VIEW_EMPLOYEE
+  );
 
   const filteredEmployees = employee.filter((e) =>
     e.id.toLowerCase().includes(searchValue.toLowerCase())
@@ -362,6 +367,7 @@ export const Admin = () => {
                     setSelectedEmployee(
                       employee.find((e) => e.id === id) || null
                     );
+                    setSelectedActionType(AdminActions.VIEW_EMPLOYEE);
                     setIsOpen(true);
                     setIsSearchOpen(false);
                     setSearchValue("");
@@ -383,13 +389,26 @@ export const Admin = () => {
         {/* Filters Overlay */}
 
         {/* Employee List */}
-        <span className="font-semibold text-stone-300">All Employees</span>
+        <div className="flex items-center justify-between mb-2">
+          <span className="font-semibold text-stone-300">All Employees</span>
+          <button
+            className="p-1 rounded hover:text-white text-stone-400 transition-colors"
+            onClick={() => {
+              setSelectedActionType(AdminActions.ADD_EMPLOYEE);
+              setIsOpen(true);
+            }}
+          >
+            <Plus size={18} />
+          </button>
+        </div>
         <div className="flex flex-col gap-2">
           {employeeList.map(({ name, id }) => (
             <button
               key={id}
               onClick={() => {
-                setSelectedEmployee(employee.find((e) => e.id === id));
+                setSelectedEmployee(employee.find((e) => e.id === id) || null);
+                setSelectedActionType(AdminActions.VIEW_EMPLOYEE);
+
                 setIsOpen(true);
               }}
               className="px-4 py-2 rounded-lg bg-stone-800/70 hover:bg-stone-700/70 text-left text-sm text-stone-300 transition-all"
@@ -407,9 +426,14 @@ export const Admin = () => {
       <EmployeeDetailsModal
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
+        selectedAction={selectedActionType}
         employee={selectedEmployee!}
       >
-        <h2 className="text-xl font-bold w-full h-full">Employee details</h2>
+        <i className="text-xl font-bold w-full mb-4">
+          {selectedActionType === AdminActions.VIEW_EMPLOYEE
+            ? "Employee Details"
+            : "Employee management"}
+        </i>
       </EmployeeDetailsModal>
     </div>
   );
